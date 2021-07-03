@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7759431e303e2d722a264a8a991a9e84",
+    "content-hash": "b10894ef9173670f50fb6c75ad60f089",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -117,6 +117,58 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "devsrv/autostrap",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./../../packages/autostrap",
+                "reference": "506a8e79baa35d5e9afaaa250f6d365e0b41d635"
+            },
+            "require": {
+                "illuminate/contracts": "^7.0 || ^8.0",
+                "illuminate/routing": "^7.0 || ^8.0",
+                "illuminate/support": "^7.0 || ^8.0",
+                "illuminate/view": "^7.0 || ^8.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Devsrv\\Autostrap\\AutostrapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Devsrv\\Autostrap\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sourav Rakshit",
+                    "email": "hello@itsrav.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "use laravel blade component methods as javascript function for XHR",
+            "homepage": "https://github.com/devsrv/laravel-inplace",
+            "keywords": [
+                "Blade Component",
+                "Laravel",
+                "devsrv"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "doctrine/inflector",
