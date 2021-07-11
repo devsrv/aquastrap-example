@@ -21,7 +21,7 @@ class Post extends Component
 
     public function delete()
     {
-        //
+        return response()->json(['rav' => 'r']);
     }
 
     /**

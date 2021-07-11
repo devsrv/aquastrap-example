@@ -29,7 +29,7 @@ class Article extends Component
     public static function routes(Router $router)
     {
         $router->get('articles/foo/update', [static::class, 'update'])->name('test.name');
-        $router->get('articles/foo/delete', [static::class, 'delete'])->name('test.delete');
+        $router->post('articles/foo/delete', [static::class, 'delete'])->name('test.delete');
     }
 
     public function update()
@@ -39,6 +39,7 @@ class Article extends Component
 
     public function delete()
     {
+        // sleep(5);
         return response()->json(['foo' => 'bar']);
     }
 

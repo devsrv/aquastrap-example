@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- Styles -->
         <style>
@@ -23,7 +24,8 @@
         @aquasync
 
         {{-- <script>
-            @aquaglobal().onSuccess((res) => console.info('successful', res)).onError((err) => console.warn('something went wrong', err));
+            // js helper - global config
+           Aquastrap.onSuccess((res) => console.info('successful', res)).onError((err) => console.warn('something went wrong', err));
         </script> --}}
 
     </head>
@@ -45,7 +47,11 @@
 
             <x-article />
 
+            <x-folder.my-component />
+
             <x-post />
+
+            {{-- <x-post /> --}}
         </div>
     </body>
 </html>
