@@ -54,4 +54,9 @@
             <p x-show="! loading && res" x-text="JSON.stringify(res)"></p>
         </div>
     </div>
+
+    <div x-data="{ posts: [] }">
+        <button type="button" x-on:click="posts = await (await fetch('{{ $aquaroute('delete') }}', {method: 'post'})).json()">Route extracted manually fetch</button>
+        <p x-text="JSON.stringify(posts)">loading. . .</p>
+    </div>
 </div>
