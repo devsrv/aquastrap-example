@@ -31,7 +31,16 @@
     <button type="button" onclick="@aqua($drips).delete({name: 'rav'})">Direct Call</button>
 
     <h4>Alpine Examples</h4>
-    <button x-data="{foo:'bar', ...{ _m: @aqua($drips)} }" type="button" x-on:click="_m.delete({name: 'rav'})">Request</button>
+    <button x-data="{foo:'bar', ...@aqua($drips) }" type="button" x-on:click="update({id: 2})">Direct Destructure</button>
+
+    <h4>Hook method</h4>
+    <div x-data="{foo:'bar', ...@aqua($drips).hook }">
+        <p x-show="update.processing">loading...</p>
+        <p x-show="! update.processing && update.result" x-text="JSON.stringify(update.result)"></p>
+        <button type="button" x-on:click="update.put({id: 2})">update</button>
+    </div>
+
+    <button x-data="{foo:'bar', ...{ _m: @aqua($drips)} }" type="button" x-on:click="_m.delete({name: 'rav'}, 'DELETE')">Request</button>
 
     <button x-data type="button" x-on:click="Aquastrap.component('article').delete({name: 'rav'})">Global Helper</button>
 
