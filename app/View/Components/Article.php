@@ -34,7 +34,7 @@ class Article extends Component
 
     public function update()
     {
-        //
+        return response()->json(['foo' => 'bar']);
     }
 
     public function delete()
