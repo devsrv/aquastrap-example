@@ -36,8 +36,15 @@
     <h4>Hook method</h4>
     <div x-data="{foo:'bar', ...@aqua($drips).hook }">
         <p x-show="update.processing">loading...</p>
-        <p x-show="! update.processing && update.result" x-text="JSON.stringify(update.result)"></p>
-        <button type="button" x-on:click="update.put({id: 2})">update</button>
+        <p x-show="! update.processing && update.result" x-effect="() => console.log('x-effect', update.result)"></p>
+        <p x-show="update.hasValidationError">validation error!</p>
+
+        <p x-text="update.message"></p>
+        <p x-text="update.statusCode"></p>
+
+        <p x-show="update.errors.email" x-text="update.errors.email"></p>
+
+        <button type="button" x-on:click="update.delete({id: 2})">update</button>
     </div>
 
     <button x-data="{foo:'bar', ...{ _m: @aqua($drips)} }" type="button" x-on:click="_m.delete({name: 'rav'}, 'DELETE')">Request</button>

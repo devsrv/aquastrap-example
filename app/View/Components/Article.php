@@ -4,6 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Devsrv\Aquastrap\Traits\ExposeMethods;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
 class Article extends Component
@@ -28,13 +30,20 @@ class Article extends Component
 
     public static function routes(Router $router)
     {
-        $router->get('articles/foo/update', [static::class, 'update'])->name('test.name');
+        $router->delete('articles/foo/update', [static::class, 'update'])->name('test.name');
         $router->post('articles/foo/delete', [static::class, 'delete'])->name('test.delete');
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        return response()->json(['foo' => 'bar']);
+        // $request->validate([
+        //     'email' => 'required',
+        //     'password' => 'required'
+        // ]);
+
+        // abort(403, 'custom error');
+
+        return response()->json(['success' => 1, 'message' => 'Successfully done'])->setStatusCode(201);
     }
 
     public function delete()
