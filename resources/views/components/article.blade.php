@@ -55,8 +55,18 @@
                     </div>
                     <div class="col-12 mt-2">
                         <label class="form-label">single file preview</label>
-                        <input x-on:change="previewSingleFile($el.files[0], $refs.previewSingle); form.avatar = $el.files[0]" class="form-control" :class="{'is-invalid': update.errors.avatar}" type="file" />
-                        <img x-ref="previewSingle" class="rounded mt-1" width="80" />
+                        <input x-on:change="previewSingleFile('avatar', $el, $refs.previewSingle, $refs.previewSingleSize, $refs.previewSingleName)" x-ref="avatarfld" class="form-control" :class="{'is-invalid': update.errors.avatar}" type="file" />
+                        <div class="preview position-relative">
+                            <div class="position-absolute top-0" style="left:60px">
+                                <template x-if="form.avatar">
+                                    <button @click.prevent="clearSingleFile('avatar', $refs.avatarfld, $refs.previewSingle, $refs.previewSingleSize, $refs.previewSingleName)" type="button" class="btn btn-sm">&times;</button>
+                                </template>
+                            </div>
+
+                            <img x-ref="previewSingle" src="" class="rounded mt-1" width="80" />
+                            <p x-ref="previewSingleSize" class="mb-1"></p>
+                            <p x-ref="previewSingleName" class="mb-0"></p>
+                        </div>
                         <small x-show="update.errors.avatar" x-text="update.errors.avatar" class="invalid-feedback"></small>
                     </div>
                     <button class="btn btn-sm btn-primary mt-2" :disabled="update.processing" type="submit">Save</button>
@@ -128,13 +138,52 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('singleUpload', () => ({
-                previewSingleFile(file, target) {
-                    if(!file) { target.setAttribute('src', ''); return; }
+                fileFallbackPreview: 'data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhbCIgZGF0YS1pY29uPSJmaWxlLWFsdCIgcm9sZT0iaW1nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtZmlsZS1hbHQgZmEtdy0xMiBmYS0zeCI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMzY5LjkgOTcuOUwyODYgMTRDMjc3IDUgMjY0LjgtLjEgMjUyLjEtLjFINDhDMjEuNSAwIDAgMjEuNSAwIDQ4djQxNmMwIDI2LjUgMjEuNSA0OCA0OCA0OGgyODhjMjYuNSAwIDQ4LTIxLjUgNDgtNDhWMTMxLjljMC0xMi43LTUuMS0yNS0xNC4xLTM0em0tMjIuNiAyMi43YzIuMSAyLjEgMy41IDQuNiA0LjIgNy40SDI1NlYzMi41YzIuOC43IDUuMyAyLjEgNy40IDQuMmw4My45IDgzLjl6TTMzNiA0ODBINDhjLTguOCAwLTE2LTcuMi0xNi0xNlY0OGMwLTguOCA3LjItMTYgMTYtMTZoMTc2djEwNGMwIDEzLjMgMTAuNyAyNCAyNCAyNGgxMDR2MzA0YzAgOC44LTcuMiAxNi0xNiAxNnptLTQ4LTI0NHY4YzAgNi42LTUuNCAxMi0xMiAxMkgxMDhjLTYuNiAwLTEyLTUuNC0xMi0xMnYtOGMwLTYuNiA1LjQtMTIgMTItMTJoMTY4YzYuNiAwIDEyIDUuNCAxMiAxMnptMCA2NHY4YzAgNi42LTUuNCAxMi0xMiAxMkgxMDhjLTYuNiAwLTEyLTUuNC0xMi0xMnYtOGMwLTYuNiA1LjQtMTIgMTItMTJoMTY4YzYuNiAwIDEyIDUuNCAxMiAxMnptMCA2NHY4YzAgNi42LTUuNCAxMi0xMiAxMkgxMDhjLTYuNiAwLTEyLTUuNC0xMi0xMnYtOGMwLTYuNiA1LjQtMTIgMTItMTJoMTY4YzYuNiAwIDEyIDUuNCAxMiAxMnoiIGNsYXNzPSIiPjwvcGF0aD48L3N2Zz4=',
+                isImage(file) {
+                    return file.type.match("image.*");
+                },
+                fileSize(file) {
+                    return file.size > 1024
+                    ? file.size > 1048576
+                        ? Math.round(file.size / 1048576) + "mb"
+                        : Math.round(file.size / 1024) + "kb"
+                    : file.size + "b";
+                },
+                previewSingleFile(formField, field, target, sizeNode, nameNode) {
+                    const file = field.files[0];
 
-                    URL.revokeObjectURL(target.src);
+                    if(!file) {
+                        target.setAttribute('src', '');
+                        this.form[formField] = null;
+                        field.value = null;
+                        sizeNode.textContent = '';
+                        nameNode.textContent = '';
+                        return;
+                    }
+
+                    this.form[formField] = file;    // alpine form state value set to file
+
+                    URL.revokeObjectURL(target.src);  // reset previous
+
+                    sizeNode.textContent = this.fileSize(file);
+                    nameNode.textContent = file.name;
+
+                    if(! this.isImage(file)) {
+                        target.src = this.fileFallbackPreview;
+                        return;
+                    }
 
                     target.src = URL.createObjectURL(file);
                     target.onload = () => URL.revokeObjectURL(target.src);
+                },
+                clearSingleFile(formField, field, target, sizeNode, nameNode) {
+                    this.form[formField] = null;
+                    field.value = null;
+                    sizeNode.textContent = '';
+                    nameNode.textContent = '';
+
+                    URL.revokeObjectURL(target.src);
+                    target.setAttribute('src', '');
                 }
             }))
         })
