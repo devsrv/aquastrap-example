@@ -370,7 +370,7 @@ function _manifestNetworkHandler(url) {
             if (!(data instanceof FormData)) {
               _mergeDataIntoQuerySt = (0,_helper_util__WEBPACK_IMPORTED_MODULE_2__._mergeDataIntoQueryString)(method, url, data), _mergeDataIntoQuerySt2 = _slicedToArray(_mergeDataIntoQuerySt, 2), _href = _mergeDataIntoQuerySt2[0], _data = _mergeDataIntoQuerySt2[1];
               url = (0,_helper_util__WEBPACK_IMPORTED_MODULE_2__.hrefToUrl)(_href);
-              data = _data;
+              data = JSON.stringify(_data);
             }
 
             options = _objectSpread({
