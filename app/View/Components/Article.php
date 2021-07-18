@@ -2,11 +2,10 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\ExposeMethods;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\View\Component;
+use Devsrv\Aquastrap\Traits\ExposeMethods;
 
 class Article extends Component
 {
@@ -30,16 +29,18 @@ class Article extends Component
 
     public static function routes(Router $router)
     {
-        $router->delete('articles/foo/update', [static::class, 'update'])->name('test.name');
+        $router->post('articles/foo/update', [static::class, 'update'])->name('test.name');
         $router->post('articles/foo/delete', [static::class, 'delete'])->name('test.delete');
     }
 
     public function update(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required',
-        //     'password' => 'required'
-        // ]);
+        $request->validate([
+            'email' => 'required|email',
+            'profile' => 'nullable|file|mimes:png,jpg',
+            'avatar' => 'nullable|file|mimes:png,jpg',
+            'tour.*' => 'file|mimes:png,jpg'
+        ]);
 
         // abort(403, 'custom error');
 

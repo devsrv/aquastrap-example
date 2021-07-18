@@ -38,7 +38,7 @@
 
     <x-ui.card title="Hook method">
         <div class="p-3">
-            <div x-data="{...singleUpload(), form:{email: '', profile: null, avatar: null}, ...@aqua($drips).hook }">
+            <div x-data="{...singleUpload(), ...multipleUpload(), ...fileValidationHelper(), form:{email: '', profile: null, avatar: null}, ...@aqua($drips).hook }">
                 <p x-show="update.processing">loading...</p>
                 <p x-show="! update.processing && update.result" x-effect="() => console.log('x-effect', update.result)"></p>
                 <p x-show="update.hasValidationError">validation error!</p>
@@ -68,6 +68,33 @@
                             <p x-ref="previewSingleName" class="mb-0"></p>
                         </div>
                         <small x-show="update.errors.avatar" x-text="update.errors.avatar" class="invalid-feedback"></small>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label class="form-label">multiple file</label>
+                        <input x-on:change="previewMultipleFile('tour', $el)" x-ref="tourfld" class="form-control" :class="{'is-invalid': hasMultiFileError('tour')}" type="file" multiple />
+                        <div class="preview">
+                            <template x-if="filesList.tour && filesList.tour.length > 0">
+                                <div>
+                                    <ul>
+                                        <template x-for="(tour, index) in filesList.tour" :key="index">
+                                            <li>
+                                                [<span x-text="tour.size"></span>] - <span x-text="tour.name"></span>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                    <button @click.prevent="clearMultiFiles('tour', $refs.tourfld)" type="button" class="btn btn-sm">&times; clear</button>
+                                </div>
+                            </template>
+                        </div>
+                        <small x-effect="() => checkMultipleFileUploadError('tour', $refs.tourfld, update.errors)" class="invalid-feedback">
+                            <template x-if="fileErrors.tour && fileErrors.tour.length > 0">
+                                <ul>
+                                    <template x-for="(err, index) in fileErrors.tour" :key="index">
+                                        <li x-text="err"></li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </small>
                     </div>
                     <button class="btn btn-sm btn-primary mt-2" :disabled="update.processing" type="submit">Save</button>
                 </form>
@@ -185,7 +212,71 @@
                     URL.revokeObjectURL(target.src);
                     target.setAttribute('src', '');
                 }
-            }))
+            }));
+
+            Alpine.data('multipleUpload', () => ({
+                filesList: {},
+                fileSize(file) {
+                    return file.size > 1024
+                    ? file.size > 1048576
+                        ? Math.round(file.size / 1048576) + "mb"
+                        : Math.round(file.size / 1024) + "kb"
+                    : file.size + "b";
+                },
+                previewMultipleFile(formField, field) {
+                    const files = field.files;
+                    this.form[formField] = files;
+
+                    this.filesList[formField] = [];
+
+                    if(files.length === 0) return;
+
+                    let i = 0;
+                    while (i < files.length) {
+                        this.filesList[formField] = [
+                            ...this.filesList[formField],
+                            {
+                                size: this.fileSize(files[i]),
+                                name: files[i].name
+                            }
+                        ];
+
+                        i++;
+                    }
+                },
+                clearMultiFiles(formField, field) {
+                    this.form[formField] = null;
+                    field.value = null;
+
+                    this.filesList[formField] = [];
+                }
+            }));
+
+            Alpine.data('fileValidationHelper', () => ({
+                fileErrors: {},
+                checkMultipleFileUploadError(formFieldName, field, errors) {
+                    this.fileErrors = {
+                        ...this.fileErrors,
+                        [formFieldName] : []
+                    };
+
+                    if(field.files.length) {
+                        Array(field.files.length).fill().map((_,i) => {
+                            if(Object.prototype.hasOwnProperty.call(errors, `${formFieldName}.${i}`)) {
+                                this.fileErrors = Object.assign({}, this.fileErrors, {
+                                    [formFieldName] : [
+                                        ...this.fileErrors[formFieldName],
+                                        errors[`${formFieldName}.${i}`]
+                                    ]
+                                });
+                            }
+                        });
+                    }
+                },
+                hasMultiFileError(formFieldName) {
+                    return Object.prototype.hasOwnProperty.call(this.fileErrors, formFieldName) && this.fileErrors[formFieldName].length > 0;
+                }
+            }));
         })
     </script>
 </div>
