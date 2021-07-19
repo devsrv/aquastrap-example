@@ -24,6 +24,14 @@
         <button type="button" onclick="@aqua($drips).delete({name: 'rav'})">Exec</button>
     </x-ui.card>
 
+    <x-ui.card>
+        <x-slot name="title">
+            <h5>Call aqua method with HTTP method</h5>
+        </x-slot>
+
+        <button type="button" onclick="@aqua($drips).delete({name: 'rav'}, 'POST')">Exec</button>
+    </x-ui.card>
+
     <hr />
 
     <h4>Alpine Examples</h4>
@@ -97,6 +105,7 @@
                         </small>
                     </div>
                     <button class="btn btn-sm btn-primary mt-2" :disabled="update.processing" type="submit">Save</button>
+                    <button x-show="update.processing" @click.prevent="update.cancel()" class="btn btn-sm btn-secondary mt-2" type="button">Cancel</button>
                 </form>
             </div>
         </div>

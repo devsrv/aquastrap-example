@@ -348,10 +348,12 @@ function _manifestNetworkHandler(url) {
   return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var data,
         method,
+        signal,
         _mergeDataIntoQuerySt,
         _mergeDataIntoQuerySt2,
         _href,
         _data,
+        cancelSignal,
         options,
         reponse,
         _args = arguments;
@@ -362,6 +364,7 @@ function _manifestNetworkHandler(url) {
           case 0:
             data = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
             method = _args.length > 1 && _args[1] !== undefined ? _args[1] : _helper_types__WEBPACK_IMPORTED_MODULE_1__.Method.POST;
+            signal = _args.length > 2 && _args[2] !== undefined ? _args[2] : null;
 
             if ((0,_helper_util__WEBPACK_IMPORTED_MODULE_2__._hasFiles)(data) && !(data instanceof FormData)) {
               data = (0,_helper_util__WEBPACK_IMPORTED_MODULE_2__._objectToFormData)(data);
@@ -373,6 +376,7 @@ function _manifestNetworkHandler(url) {
               data = JSON.stringify(_data);
             }
 
+            cancelSignal = signal || new AbortController().signal;
             options = _objectSpread({
               headers: _objectSpread(_objectSpread({
                 Accept: 'application/json'
@@ -382,12 +386,13 @@ function _manifestNetworkHandler(url) {
                 "X-Requested-With": "XMLHttpRequest",
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
               }),
+              signal: cancelSignal,
               credentials: "same-origin",
               method: method
             }, method !== _helper_types__WEBPACK_IMPORTED_MODULE_1__.Method.GET && {
               body: data
             });
-            _context.next = 7;
+            _context.next = 9;
             return fetch(url, options).then(function (res) {
               return res;
             }).then(function (data) {
@@ -414,11 +419,11 @@ function _manifestNetworkHandler(url) {
               return error;
             });
 
-          case 7:
+          case 9:
             reponse = _context.sent;
             return _context.abrupt("return", reponse);
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -3619,6 +3624,7 @@ window._aquaGenerate = function (id) {
         statusCode: '',
         errors: {},
         message: '',
+        abortController: null,
 
         get hasValidationError() {
           return !this.processing && Object.keys(this.errors).length > 0;
@@ -3633,7 +3639,8 @@ window._aquaGenerate = function (id) {
           this.statusCode = '';
           this.errors = {};
           this.message = '';
-          networkHandler(form, type).then(function (res) {
+          this.abortController = new AbortController();
+          networkHandler(form, type, this.abortController.signal).then(function (res) {
             _this.statusCode = res.status;
             _this.result = res.data;
             _this.message = (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(res.data, 'message') ? res.data.message : '';
@@ -3643,6 +3650,9 @@ window._aquaGenerate = function (id) {
           })["finally"](function (_) {
             return _this.processing = false;
           });
+        },
+        cancel: function cancel() {
+          if (this.abortController) this.abortController.abort();
         },
         get: function get(form) {
           this.submit(form, _helper_types__WEBPACK_IMPORTED_MODULE_3__.Method.GET);
