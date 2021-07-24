@@ -1,7 +1,7 @@
 <div>
     <script>
         // directive - config for the current component
-        {{-- @aquaconfig($drips).onSuccess((res) => console.info('successful from config', res)).onError((err) => console.warn('something went wrong', err)); --}}
+        {{-- @aquaconfig.onSuccess((res) => console.info('successful from config', res)).onError((err) => console.warn('something went wrong', err)); --}}
 
         // js helper - config for the current component
         // Aquastrap.component('article').onSuccess((res) => console.info('successful from helper config', res)).onError((err) => console.warn('something went wrong', err));
@@ -18,10 +18,10 @@
 
     <x-ui.card>
         <x-slot name="title">
-            <h5>Direct Call aqua method <code>@@aqua($drips).delete()</code></h5>
+            <h5>Direct Call aqua method <code>@@aqua.delete()</code></h5>
         </x-slot>
 
-        <button type="button" onclick="@aqua($drips).delete({name: 'rav'})">Exec</button>
+        <button type="button" onclick="@aqua.delete({name: 'rav'})">Exec</button>
     </x-ui.card>
 
     <x-ui.card>
@@ -29,7 +29,7 @@
             <h5>Call aqua method with HTTP method</h5>
         </x-slot>
 
-        <button type="button" onclick="@aqua($drips).delete({name: 'rav'}, 'POST')">Exec</button>
+        <button type="button" onclick="@aqua.delete({name: 'rav'}, 'POST')">Exec</button>
     </x-ui.card>
 
     <hr />
@@ -38,15 +38,15 @@
 
     <x-ui.card>
         <x-slot name="title">
-            <h5>Direct Destructure <code class="small">x-data="{foo:'bar', ...@@aqua($drips) }"</code></h5>
+            <h5>Direct Destructure <code class="small">x-data="{foo:'bar', ...@@aqua }"</code></h5>
         </x-slot>
 
-        <button x-data="{foo:'bar', ...@aqua($drips) }" type="button" x-on:click="update({id: 2})">EXEC -> update({id: 2})</button>
+        <button x-data="{foo:'bar', ...@aqua }" type="button" x-on:click="update({id: 2})">EXEC -> update({id: 2})</button>
     </x-ui.card>
 
     <x-ui.card title="Hook method">
         <div class="p-3">
-            <div x-data="{...singleUpload(), ...multipleUpload(), ...fileValidationHelper(), form:{email: '', profile: null, avatar: null}, ...@aqua($drips).hook }">
+            <div x-data="{...singleUpload(), ...multipleUpload(), ...fileValidationHelper(), form:{email: '', profile: null, avatar: null}, ...@aqua.hook }">
                 <p x-show="update.processing">loading...</p>
                 <p x-show="! update.processing && update.result" x-effect="() => console.log('x-effect', update.result)"></p>
                 <p x-show="update.hasValidationError">validation error!</p>
@@ -113,10 +113,10 @@
 
     <x-ui.card>
         <x-slot name="title">
-            <h5>Destructure to a state <code class="small">x-data="{foo:'bar', ...{ _m: @@aqua($drips)} }"</code></h5>
+            <h5>Destructure to a state <code class="small">x-data="{foo:'bar', ...{ _m: @@aqua} }"</code></h5>
         </x-slot>
 
-        <button x-data="{foo:'bar', ...{ _m: @aqua($drips)} }" type="button" x-on:click="_m.delete({name: 'rav'}, 'DELETE')">EXEC -> _m.delete({name: 'rav'}, 'DELETE')</button>
+        <button x-data="{foo:'bar', ...{ _m: @aqua} }" type="button" x-on:click="_m.delete({name: 'rav'}, 'DELETE')">EXEC -> _m.delete({name: 'rav'}, 'DELETE')</button>
     </x-ui.card>
 
     <x-ui.card>
@@ -135,13 +135,13 @@
     </x-ui.card>
 
     <x-ui.card title="On Load Fetch">
-        <div x-data="{res: {}, ...{ _m: @aqua($drips)} }" x-init="res = await _m.delete({name: 'rav'})">
+        <div x-data="{res: {}, ...{ _m: @aqua} }" x-init="res = await _m.delete({name: 'rav'})">
             <small x-text="JSON.stringify(res)">Res</small>
         </div>
     </x-ui.card>
 
     <x-ui.card title="On Load Fetch with loading & disabled btn">
-        <div x-data="{loading: false, res: {}, ...{ _m: @aqua($drips)} }" x-init="loading = true; _m.delete({name: 'rav'}).then((d) => {res = d; loading = false;})">
+        <div x-data="{loading: false, res: {}, ...{ _m: @aqua} }" x-init="loading = true; _m.delete({name: 'rav'}).then((d) => {res = d; loading = false;})">
             <div>
                 <small x-show="loading">Loading . . .</small>
                 <small x-show="! loading && res" x-text="JSON.stringify(res)"></small>
@@ -158,14 +158,14 @@
 
     <script>
         function query({data}) {
-            const _ntwrk = @aqua($drips);
+            const _ntwrk = @aqua;
 
             // using reference
             _ntwrk.delete(data)
                 .then(res => console.log('success', res));
 
             // call directly
-            // @aqua($drips)
+            // @aqua
             //     .delete(data)
             //     .then(res => console.log(res))
         }
