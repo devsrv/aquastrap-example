@@ -2,9 +2,11 @@
 
 namespace App\View\Components\Folder;
 
-use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\ExposeMethods;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\View\Component;
+use Illuminate\Support\Facades\Gate;
+use Devsrv\Aquastrap\Traits\ExposeMethods;
 
 class MyComponent extends Component
 {
@@ -18,15 +20,15 @@ class MyComponent extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($username = 'foo', $age = 10)
     {
 
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
         // sleep(5);
-        return response()->json(['foo' => 'bar']);
+        return response()->json(['foo' => 'sourav']);
     }
 
     /**
