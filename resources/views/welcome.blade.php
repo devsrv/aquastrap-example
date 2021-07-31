@@ -42,7 +42,7 @@
                         <x-folder.my-component />
                     </div>
                     <div class="col-4">
-                        <x-post />
+                        <x-post username="sourav" rav="test" />
                     </div>
                 </div>
             </div>

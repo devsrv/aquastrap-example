@@ -119,21 +119,6 @@
         <button x-data="{foo:'bar', ...{ _m: @aqua} }" type="button" x-on:click="_m.delete({name: 'rav'}, 'DELETE')">EXEC -> _m.delete({name: 'rav'}, 'DELETE')</button>
     </x-ui.card>
 
-    <x-ui.card>
-        <x-slot name="title">
-            <h5>Global Helper <code class="small">Aquastrap.component('article').delete</code></h5>
-        </x-slot>
-
-        <button x-data type="button" x-on:click="Aquastrap.component('article').delete({name: 'rav'})">Exec</button>
-    </x-ui.card>
-
-    <x-ui.card title="Get the routes using Global Helper">
-        <div x-data="{routes: {}}">
-            <button type="button" x-on:click="routes = Aquastrap.component('article').routes">Routes</button>
-            <small x-text="JSON.stringify(routes)"></small>
-        </div>
-    </x-ui.card>
-
     <x-ui.card title="On Load Fetch">
         <div x-data="{res: {}, ...{ _m: @aqua} }" x-init="res = await _m.delete({name: 'rav'})">
             <small x-text="JSON.stringify(res)">Res</small>
@@ -146,13 +131,6 @@
                 <small x-show="loading">Loading . . .</small>
                 <small x-show="! loading && res" x-text="JSON.stringify(res)"></small>
             </div>
-        </div>
-    </x-ui.card>
-
-    <x-ui.card title="Route extracted manually fetch">
-        <div x-data="{ posts: [] }">
-            <button type="button" x-on:click="posts = await (await fetch('{{ $aquaroute('delete') }}', {method: 'post'})).json()">Fetch</button>
-            <small x-text="JSON.stringify(posts)">loading. . .</small>
         </div>
     </x-ui.card>
 
