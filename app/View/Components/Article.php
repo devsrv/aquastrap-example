@@ -22,15 +22,6 @@ class Article extends Component
     public function __construct()
     {
         // $this->middleware('auth');
-        // $this->middleware('auth')->except('foo');
-        // $this->middleware('log')->only('index');
-        // $this->middleware('subscribed')->except('store');
-    }
-
-    public static function routes(Router $router)
-    {
-        $router->post('articles/foo/update', [static::class, 'update'])->name('test.name');
-        $router->post('articles/foo/delete', [static::class, 'delete'])->name('test.delete');
     }
 
     public function update(Request $request)
@@ -43,6 +34,10 @@ class Article extends Component
         ]);
 
         // abort(403, 'custom error');
+        if ($request->hasFile('profile')) {
+            // $request->file('profile')->store('avatars');
+            $path = $request->file('profile')->store('profile/10', 'public');
+        }
 
         return response()->json(['success' => 1, 'message' => 'Successfully done'])->setStatusCode(201);
     }

@@ -14,9 +14,9 @@ class Post extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public $username, public $rav = null, public $foo = 'bar')
     {
-        //
+
     }
 
     public function delete()
