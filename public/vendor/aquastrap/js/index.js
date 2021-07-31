@@ -47,7 +47,6 @@ window._aquaCore = {
   createNewComponent: function createNewComponent(id) {
     window._aquastrap.component = [].concat(_toConsumableArray(window._aquastrap.component), [{
       id: id,
-      routes: {},
       config: {}
     }]);
   },
@@ -168,7 +167,8 @@ function _setAquaConfig(configs) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Method": () => (/* binding */ Method)
+/* harmony export */   "Method": () => (/* binding */ Method),
+/* harmony export */   "Callback": () => (/* binding */ Callback)
 /* harmony export */ });
 var Method = {
   GET: 'get',
@@ -176,6 +176,12 @@ var Method = {
   PUT: 'put',
   PATCH: 'patch',
   DELETE: 'delete'
+};
+var Callback = {
+  SUCCESS: 'success',
+  ERROR: 'error',
+  START: 'start',
+  FINISH: 'finish'
 };
 
 /***/ }),
@@ -342,9 +348,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-function _manifestNetworkHandler(url) {
-  var successCallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var errorCallback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+function _manifestNetworkHandler(url, componentClass, classDependency, classMethod, id) {
   return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var data,
         method,
@@ -384,7 +388,14 @@ function _manifestNetworkHandler(url) {
                 "Content-Type": "application/json"
               }), {}, {
                 "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+                "X-Aquastrap": JSON.stringify({
+                  component: {
+                    "class": componentClass,
+                    params: classDependency
+                  },
+                  method: classMethod
+                })
               }),
               signal: cancelSignal,
               credentials: "same-origin",
@@ -396,12 +407,12 @@ function _manifestNetworkHandler(url) {
             return fetch(url, options).then(function (res) {
               return res;
             }).then(function (data) {
-              if (data.status >= 400 && typeof errorCallback === 'function') {
-                errorCallback(data);
+              if (data.status >= 400) {
+                execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR, data);
               }
 
-              if (data.status < 300 && typeof successCallback === 'function') {
-                successCallback(data);
+              if (data.status < 300) {
+                execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.SUCCESS, data);
               }
 
               var status = data.status;
@@ -412,10 +423,7 @@ function _manifestNetworkHandler(url) {
                 };
               });
             })["catch"](function (error) {
-              if (typeof errorCallback === 'function') {
-                errorCallback(error);
-              }
-
+              execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR, data);
               return error;
             });
 
@@ -432,17 +440,32 @@ function _manifestNetworkHandler(url) {
   }));
 }
 
-function _replicatePublicMethods(routes, id) {
-  var successCallback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-  var errorCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+function execUserCallback(id, type, data) {
+  switch (type) {
+    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.SUCCESS:
+      _aquaCore.resolveSuccessCallback(id)(data);
+
+      break;
+
+    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR:
+      _aquaCore.resolveErrorCallback(id)(data);
+
+      break;
+
+    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.START:
+      break;
+
+    default:
+      break;
+  }
+}
+
+function _replicatePublicMethods(componentClass, classDependency, methodNames, id) {
   var methods = {};
 
-  for (var _i2 = 0, _Object$entries = Object.entries(routes); _i2 < _Object$entries.length; _i2++) {
-    var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-        name = _Object$entries$_i[0],
-        url = _Object$entries$_i[1];
-
-    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(url, successCallback || _aquaCore.resolveSuccessCallback(id), errorCallback || _aquaCore.resolveErrorCallback(id))));
+  for (var _i2 = 0, _Object$values = Object.values(methodNames); _i2 < _Object$values.length; _i2++) {
+    var name = _Object$values[_i2];
+    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(window._aquaroute, componentClass, classDependency, name, id)));
   }
 
   return methods;
@@ -3547,6 +3570,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper/types */ "./resources/js/helper/types.js");
 function _defineEnumerableProperties(obj, descs) { for (var key in descs) { var desc = descs[key]; desc.configurable = desc.enumerable = true; if ("value" in desc) desc.writable = true; Object.defineProperty(obj, key, desc); } if (Object.getOwnPropertySymbols) { var objectSymbols = Object.getOwnPropertySymbols(descs); for (var i = 0; i < objectSymbols.length; i++) { var sym = objectSymbols[i]; var desc = descs[sym]; desc.configurable = desc.enumerable = true; if ("value" in desc) desc.writable = true; Object.defineProperty(obj, sym, desc); } } return obj; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3558,12 +3587,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -3583,30 +3606,11 @@ window.Aquastrap = {
     });
 
     return this;
-  },
-  component: function component(id) {
-    return _objectSpread({
-      routes: (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._findComponentById)(id).routes,
-      onSuccess: function onSuccess(succesCallback) {
-        (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-          success: succesCallback
-        }, id);
-
-        return this;
-      },
-      onError: function onError(errCallback) {
-        (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-          error: errCallback
-        }, id);
-
-        return this;
-      }
-    }, (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)((0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._findComponentById)(id).routes, id));
   }
 };
 
-window._aquaGenerate = function (id) {
-  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)((0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._findComponentById)(id).routes, id);
+window._aquaGenerate = function (id, componentClass, classDependency, methods) {
+  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)(componentClass, classDependency, methods, id);
 
   var hook = {};
 
