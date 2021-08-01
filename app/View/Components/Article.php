@@ -11,8 +11,7 @@ class Article extends Component
 {
     use AquaSync;
 
-    // public const SKIP_ROUTES = ['delete'];
-    public const SKIP_ROUTES = [];
+    protected static $middlewares = ['auth'];
 
     /**
      * Create a new component instance.
@@ -21,7 +20,7 @@ class Article extends Component
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+
     }
 
     public function update(Request $request)

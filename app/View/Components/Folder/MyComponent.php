@@ -12,8 +12,7 @@ class MyComponent extends Component
 {
     use AquaSync;
 
-    // public const SKIP_ROUTES = ['delete'];
-    public const SKIP_ROUTES = [];
+    // protected static $middlewares = ['auth'];
 
     /**
      * Create a new component instance.

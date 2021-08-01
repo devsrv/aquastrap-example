@@ -9,6 +9,8 @@ class Post extends Component
 {
     use AquaSync;
 
+    // protected static $middlewares = ['auth'];
+
     /**
      * Create a new component instance.
      *
