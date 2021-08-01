@@ -5,11 +5,11 @@ namespace App\View\Components;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\ExposeMethods;
+use Devsrv\Aquastrap\Traits\AquaSync;
 
 class Article extends Component
 {
-    use ExposeMethods;
+    use AquaSync;
 
     // public const SKIP_ROUTES = ['delete'];
     public const SKIP_ROUTES = [];

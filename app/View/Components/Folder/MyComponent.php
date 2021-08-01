@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Gate;
-use Devsrv\Aquastrap\Traits\ExposeMethods;
+use Devsrv\Aquastrap\Traits\AquaSync;
 
 class MyComponent extends Component
 {
-    use ExposeMethods;
+    use AquaSync;
 
     // public const SKIP_ROUTES = ['delete'];
     public const SKIP_ROUTES = [];

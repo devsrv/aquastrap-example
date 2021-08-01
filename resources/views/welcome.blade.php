@@ -22,7 +22,7 @@
             }
         </style>
 
-        @aquasync
+        @aquaScripts
 
         {{-- <script>
             // js helper - global config
@@ -42,7 +42,8 @@
                         <x-folder.my-component />
                     </div>
                     <div class="col-4">
-                        <x-post username="sourav" rav="test" />
+                        <x-post username="rsourav" comment="test comment" foo="bar" />
+                        <x-post username="coldsierra" comment="shiva" />
                     </div>
                 </div>
             </div>

@@ -3,25 +3,25 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\ExposeMethods;
+use Devsrv\Aquastrap\Traits\AquaSync;
 
 class Post extends Component
 {
-    use ExposeMethods;
+    use AquaSync;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(public $username, public $rav = null, public $foo = 'bar')
+    public function __construct(public $username, public $comment = '', public $foo = null)
     {
 
     }
 
     public function delete()
     {
-        return response()->json(['rav' => 'r']);
+        return response()->json(['success' => 1]);
     }
 
     /**
