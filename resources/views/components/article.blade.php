@@ -29,6 +29,14 @@
         <button type="button" onclick="@aqua.delete({name: 'rav'}, 'POST')">Exec</button>
     </x-ui.card>
 
+    <x-ui.card>
+        <x-slot name="title">
+            <h5>Another Aqua Component within one component</h5>
+        </x-slot>
+
+        <x-post username="coldsierra" comment="shiva" />
+    </x-ui.card>
+
     <hr />
 
     <h4>Alpine Examples</h4>
