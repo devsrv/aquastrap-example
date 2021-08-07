@@ -11,7 +11,7 @@ class Article extends Component
 {
     use AquaSync;
 
-    protected static $middlewares = ['auth'];
+    protected static $middlewares = ['web'];
 
     /**
      * Create a new component instance.
@@ -43,8 +43,9 @@ class Article extends Component
 
     public function delete()
     {
-        // sleep(5);
-        return response()->json(['foo' => 'bar']);
+        sleep(3);
+
+        return $this->warning('something not good', ['foo' => 'world']);
     }
 
     /**

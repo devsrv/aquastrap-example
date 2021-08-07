@@ -23,7 +23,7 @@ class Post extends Component
 
     public function delete()
     {
-        return response()->json(['success' => 1]);
+        return $this->success('success message', ['hello' => 'world']);
     }
 
     /**
