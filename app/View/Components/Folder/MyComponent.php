@@ -19,7 +19,7 @@ class MyComponent extends Component
      *
      * @return void
      */
-    public function __construct($username = 'foo', $age = 10)
+    public function __construct(public $username = 'foo', public $aCallableArg = null)
     {
 
     }

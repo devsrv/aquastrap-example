@@ -39,7 +39,7 @@
                         <x-article />
                     </div>
                     <div class="col-4">
-                        <x-folder.my-component />
+                        <x-folder.my-component :aCallableArg="function($param) { return $param; }" />
                     </div>
                     <div class="col-4">
                         <x-post username="rsourav" comment="test comment" foo="bar" />
