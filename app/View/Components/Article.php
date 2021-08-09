@@ -43,7 +43,7 @@ class Article extends Component
 
     public function delete()
     {
-        sleep(3);
+        // sleep(3);
 
         return $this->warning('something not good', ['foo' => 'world']);
     }
