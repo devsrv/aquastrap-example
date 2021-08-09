@@ -1,7 +1,8 @@
 @extends('welcome')
 
 @section('content')
-{{-- @aquaLink('App.View.Components.Post') --}}
+{{-- @aquaLink(['App.Http.Controllers.Profile', ['comment' => 'sourav']]) --}}
+@aquaLink('App.Http.Controllers.Profile')
 
 <div class="justify-content-center mt-5 mx-5">
     <div class="container">

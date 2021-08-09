@@ -21,7 +21,9 @@ class Profile extends Controller
 
     public function update()
     {
-        return $this->success('success update message');
+        return $this->success('success update message', [
+            'comment' => $this->comment
+        ]);
     }
 
     public function delete()
@@ -31,6 +33,7 @@ class Profile extends Controller
 
     public function render()
     {
-        return view('profile', ['comment' => 'bar'])->with($this->aquaRecipes());
+        // return view('profile', ['comment' => 'bar'])->with($this->aquaRecipes());
+        return view('profile', ['comment' => 'bar']);
     }
 }
