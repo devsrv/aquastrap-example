@@ -33,6 +33,6 @@ class Post extends Component
      */
     public function render()
     {
-        return view('components.post');
+        return view('components.post', ['foo' => 'bar'])->with($this->aquaRecipes());
     }
 }
