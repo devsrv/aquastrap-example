@@ -348,7 +348,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-function _manifestNetworkHandler(url, componentClass, classDependency, classMethod, id) {
+function _manifestNetworkHandler(url, ingredient, classMethod, id) {
   return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var data,
         method,
@@ -390,10 +390,7 @@ function _manifestNetworkHandler(url, componentClass, classDependency, classMeth
                 "X-Requested-With": "XMLHttpRequest",
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
                 "X-Aquastrap": JSON.stringify({
-                  component: {
-                    "class": componentClass,
-                    params: classDependency
-                  },
+                  ingredient: ingredient,
                   method: classMethod
                 })
               }),
@@ -460,12 +457,12 @@ function execUserCallback(id, type, data) {
   }
 }
 
-function _replicatePublicMethods(componentClass, classDependency, methodNames, id) {
+function _replicatePublicMethods(id, classIngredient, methodNames) {
   var methods = {};
 
   for (var _i2 = 0, _Object$values = Object.values(methodNames); _i2 < _Object$values.length; _i2++) {
     var name = _Object$values[_i2];
-    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(window._aquaroute, componentClass, classDependency, name, id)));
+    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(window._aquaroute, classIngredient, name, id)));
   }
 
   return methods;
@@ -3609,8 +3606,8 @@ window.Aquastrap = {
   }
 };
 
-window._aquaGenerate = function (id, componentClass, classDependency, methods) {
-  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)(componentClass, classDependency, methods, id);
+window._aquaGenerate = function (id, componentIngredient, methods) {
+  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)(id, componentIngredient, methods);
 
   var hook = {};
 

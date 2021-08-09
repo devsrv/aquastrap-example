@@ -12,6 +12,10 @@ class MyComponent extends Component
 {
     use AquaSync;
 
+    public $username;
+    public $aCallableArg;
+    public static $fname;
+
     // protected static $middlewares = ['auth'];
 
     /**
@@ -19,9 +23,11 @@ class MyComponent extends Component
      *
      * @return void
      */
-    public function __construct(public $username = 'foo', public $aCallableArg = null)
+    public function __construct($fname, $username = 'foo', $aCallableArg = null)
     {
-
+        $this->username = $username;
+        $this->aCallableArg = $aCallableArg;
+        self::$fname = $fname;
     }
 
     public function delete(Request $request)
@@ -37,6 +43,7 @@ class MyComponent extends Component
      */
     public function render()
     {
-        return view('components.folder.my-component');
+        return view('components.folder.my-component', $this->aquaRecipes());
+        // return view('components.folder.my-component')->with($this->aquaRecipes());
     }
 }
