@@ -35,21 +35,18 @@ return [
 
     'encryption' => [
 
-        'default' => env('AQUASTRAP_ENCRYPTION', 'halite'),
+        'default' => env('AQUASTRAP_ENCRYPTION', 'custom'),
 
         'strategy' => [
             'native' => [
-                'encrypter' => [\Illuminate\Support\Facades\Crypt::class, 'encryptString'],
-                'decrypter' => [\Illuminate\Support\Facades\Crypt::class, 'decryptString']
+                'crypter' => \Devsrv\Aquastrap\Crypt\Native\Crypt::class
             ],
             'custom' => [
-                'encrypter' => [\App\Services\Crypt\Crypter::class, 'Encrypt'],
-                'decrypter' => [\App\Services\Crypt\Crypter::class, 'Decrypt']
+                'crypter' => \App\Services\Crypt\Crypter::class
             ],
             'halite' => [
                 'key_path' => storage_path('app/aquastrap/encryption.key'),
-                'encrypter' => [\Devsrv\Aquastrap\Crypt\Halite\Crypt::class, 'Encrypt'],
-                'decrypter' => [\Devsrv\Aquastrap\Crypt\Halite\Crypt::class, 'Decrypt']
+                'crypter' => \Devsrv\Aquastrap\Crypt\Halite\Crypt::class
             ]
         ]
     ]

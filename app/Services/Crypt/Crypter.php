@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Services\Crypt;
+use Devsrv\Aquastrap\Contracts\Crypto;
 
-class Crypter
+class Crypter implements Crypto
 {
     public const encrypt_method = "AES-256-CBC";
     public const secret_key = 'AA74CDCC2BBRT935136HH7B63C27'; // user define private key
@@ -17,7 +18,7 @@ class Crypter
         self::$iv = substr(hash('sha256', self::secret_iv), 0, 16); // sha256 is hash_hmac_algo
     }
 
-    public static function Encrypt($content)
+    public static function Encrypt($content) : string
     {
         self::init();
 
@@ -27,7 +28,7 @@ class Crypter
         return $output;
     }
 
-    public static function Decrypt($content)
+    public static function Decrypt($content) : string
     {
         self::init();
 
