@@ -4,12 +4,14 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Devsrv\Aquastrap\Traits\AquaSync;
+use Devsrv\Aquastrap\AquaComponent;
 
-class Post extends Component
+class Post extends AquaComponent
 {
     use AquaSync;
 
     // protected static $middlewares = ['auth'];
+    protected static $guarded = ['store'];
 
     /**
      * Create a new component instance.
@@ -26,6 +28,11 @@ class Post extends Component
         return $this->success('success message', ['hello' => 'world']);
     }
 
+    public function store()
+    {
+        return $this->success('success message', ['hello' => 'world']);
+    }
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -33,6 +40,7 @@ class Post extends Component
      */
     public function render()
     {
-        return view('components.post', ['foo' => 'bar'])->with($this->aquaRecipes());
+        return view('components.post', ['foo' => 'bar']);
+        // return view('components.post', ['foo' => 'bar'])->with($this->aquaRecipes());
     }
 }
