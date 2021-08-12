@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Devsrv\Aquastrap\Traits\AquaSync;
 
-class Profile extends Controller
+class Profile
 {
     use AquaSync;
 
@@ -19,21 +19,27 @@ class Profile extends Controller
         // $this->middleware('auth');
     }
 
-    public function update()
+    public function updated()
     {
         return $this->success('success update message', [
             'comment' => $this->comment
         ]);
     }
 
-    public function delete()
+    public function deleted()
+    {
+        return $this->success('success delete message', ['hello' => 'world']);
+    }
+
+    public function store()
     {
         return $this->success('success delete message', ['hello' => 'world']);
     }
 
     public function render()
     {
-        // return view('profile', ['comment' => 'bar'])->with($this->aquaRecipes());
-        return view('profile', ['comment' => 'bar']);
+        // $this->aquaRecipes()
+        return view('profile', ['comment' => 'bar'])->with($this->aquaRecipes());
+        // return view('profile', ['comment' => 'bar']);
     }
 }
