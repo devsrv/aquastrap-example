@@ -348,7 +348,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-function _manifestNetworkHandler(url, ingredient, classMethod, id) {
+function _manifestNetworkHandler(url, ingredient, classMethod, id, key) {
   return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var data,
         method,
@@ -457,12 +457,12 @@ function execUserCallback(id, type, data) {
   }
 }
 
-function _replicatePublicMethods(id, classIngredient, methodNames) {
+function _replicatePublicMethods(id, key, classIngredient, methodNames) {
   var methods = {};
 
   for (var _i2 = 0, _Object$values = Object.values(methodNames); _i2 < _Object$values.length; _i2++) {
     var name = _Object$values[_i2];
-    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(window._aquaroute, classIngredient, name, id)));
+    methods = _objectSpread(_objectSpread({}, methods), {}, _defineProperty({}, name, _manifestNetworkHandler(window._aquaroute, classIngredient, name, id, key)));
   }
 
   return methods;
@@ -3606,8 +3606,8 @@ window.Aquastrap = {
   }
 };
 
-window._aquaGenerate = function (id, componentIngredient, methods) {
-  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)(id, componentIngredient, methods);
+window._aquaGenerate = function (id, key, componentIngredient, methods) {
+  var methodsAccessor = (0,_network__WEBPACK_IMPORTED_MODULE_2__._replicatePublicMethods)(id, key, componentIngredient, methods);
 
   var hook = {};
 
