@@ -39,6 +39,29 @@
             </form>
         </div>
     </div>
+
+    <div class="card mt-3">
+        <div class="card-body mt-4" id="v-hook-app2">
+            <h2>Hook 2</h2>
+
+            <small class="mb-0 text-danger" v-if="hasValidationErrors">validation error!</small>
+            <p class="mb-2">{{ message }}</p>
+
+            <p class="mb-2 text-success">{{ postSuccessMsg }}</p>
+
+            <p>Commented: <em class="font-italic text-primary">{{ form.comment }}</em></p>
+
+            <form @submit.prevent="post(form)">
+                <textarea v-model="form.comment" :disabled="processing" type="text" class="form-control form-control-sm" :class="{'is-invalid': errors.comment}"></textarea>
+                <small class="invalid-feedback">{{ errors.comment && errors.comment[0] }}</small>
+
+                <button :disabled="processing" type="submit" class="btn btn-sm btn-dark mt-1 d-flex justify-content-center">
+                    <div v-if="processing" class="spinner-grow spinner-grow-sm align-self-center mr-2" role="status"></div>
+                    {{ ( processing ? 'Saving...' : 'Save' ) }}
+                </button>
+            </form>
+        </div>
+    </div>
     @endverbatim
 </div>
 
@@ -75,6 +98,27 @@
         methods: {
             store: function() {
                 this.aquahook.submit(this.form);
+            },
+        }
+    });
+
+    const vmhook2 = new Vue({
+        el: '#v-hook-app2',
+        data: {form: {comment: ''}, postSuccessMsg: '', ...@aqua.hook.publish},
+        computed: {
+            hasValidationErrors: function () {
+                return ! this.processing && Object.keys(this.errors).length > 0;
+            }
+        },
+        watch: {
+            result: function (response) {
+                // listen for result & do anything
+                if(response && Object.prototype.hasOwnProperty.call(response, 'success') && Number(response.success) === 1) this.postSuccessMsg = 'comment posted for post ' + response?.id;
+            },
+            processing: function (running) {
+                // reset data
+                if(running) this.postSuccessMsg = '';
+                if(! running && this.statusCode == 200) this.form.comment = '';
             },
         }
     });
