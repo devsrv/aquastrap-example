@@ -29,7 +29,7 @@ class VueForm extends AquaComponent
             'comment' => 'required|min:10'
         ]);
 
-        return $this->success('success message', ['foo' => 'world']);
+        return $this->success('success message', ['message' => 'hello world']);
     }
 
     /**
