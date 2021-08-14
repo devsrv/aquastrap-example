@@ -6,6 +6,8 @@ use Illuminate\View\Component;
 use Devsrv\Aquastrap\Traits\AquaSync;
 use Devsrv\Aquastrap\AquaComponent;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 
 class VueForm extends AquaComponent
 {
@@ -21,6 +23,14 @@ class VueForm extends AquaComponent
         //
     }
 
+    public function authorize()
+    {
+        // return true;
+        // Gate::authorize('update-post');
+        // return Response::deny('You must be an administrator.');
+        return Response::allow();
+    }
+
     public function store(Request $request)
     {
         sleep(1);
@@ -30,6 +40,17 @@ class VueForm extends AquaComponent
         ]);
 
         return $this->success('success message', ['message' => 'hello world']);
+    }
+
+    public function publish(Request $request)
+    {
+        sleep(1);
+
+        $request->validate([
+            'comment' => 'required|min:10'
+        ]);
+
+        return $this->success('success message', ['success' => 1, 'id' => 10]);
     }
 
     /**
