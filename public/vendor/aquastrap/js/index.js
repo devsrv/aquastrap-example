@@ -12,6 +12,27 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./resources/js/config.js":
+/*!********************************!*\
+  !*** ./resources/js/config.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LIFECYCLE_CONFIG_NAME": () => (/* binding */ LIFECYCLE_CONFIG_NAME)
+/* harmony export */ });
+/* harmony import */ var _helper_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper/types */ "./resources/js/helper/types.js");
+var _LIFECYCLE_CONFIG_NAM;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var LIFECYCLE_CONFIG_NAME = (_LIFECYCLE_CONFIG_NAM = {}, _defineProperty(_LIFECYCLE_CONFIG_NAM, _helper_types__WEBPACK_IMPORTED_MODULE_0__.XHREvent.START, 'start'), _defineProperty(_LIFECYCLE_CONFIG_NAM, _helper_types__WEBPACK_IMPORTED_MODULE_0__.XHREvent.SUCCESS, 'success'), _defineProperty(_LIFECYCLE_CONFIG_NAM, _helper_types__WEBPACK_IMPORTED_MODULE_0__.XHREvent.ERROR, 'error'), _defineProperty(_LIFECYCLE_CONFIG_NAM, _helper_types__WEBPACK_IMPORTED_MODULE_0__.XHREvent.FINISH, 'finish'), _LIFECYCLE_CONFIG_NAM);
+
+/***/ }),
+
 /***/ "./resources/js/core/index.js":
 /*!************************************!*\
   !*** ./resources/js/core/index.js ***!
@@ -24,6 +45,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "_setAquaConfig": () => (/* binding */ _setAquaConfig)
 /* harmony export */ });
 /* harmony import */ var _helper_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../helper/util */ "./resources/js/helper/util.js");
+/* harmony import */ var _helper_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../helper/types */ "./resources/js/helper/types.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../config */ "./resources/js/config.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -41,6 +64,8 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symb
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 window._aquaCore = {
@@ -64,11 +89,7 @@ window._aquaCore = {
     switch (prop) {
       case 'config':
         modify = _objectSpread(_objectSpread({}, componentItem), {}, {
-          config: Object.assign({}, componentItem.config, _objectSpread(_objectSpread({}, (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, 'success') && {
-            success: value.success
-          }), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, 'error') && {
-            error: value.error
-          }))
+          config: Object.assign({}, componentItem.config, _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH]])))
         });
         break;
 
@@ -78,55 +99,36 @@ window._aquaCore = {
 
     window._aquastrap.component = [].concat(_toConsumableArray(window._aquastrap.component.slice(0, componentIndex)), [modify], _toConsumableArray(window._aquastrap.component.slice(componentIndex + 1)));
   },
-  setGlobalConfig: function setGlobalConfig(_ref2) {
-    var prop = _ref2.prop,
-        value = _ref2.value;
+  setGlobalConfig: function setGlobalConfig(_ref6) {
+    var prop = _ref6.prop,
+        value = _ref6.value;
 
     switch (prop) {
       case 'config':
-        window._aquastrap.config = _objectSpread(_objectSpread(_objectSpread({}, window._aquastrap.config), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, 'success') && {
-          success: value.success
-        }), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, 'error') && {
-          error: value.error
-        });
+        window._aquastrap.config = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, window._aquastrap.config), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR], value[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR]])), (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(value, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH]) && _defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH], value[[_config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH]]]));
         break;
 
       default:
         break;
     }
   },
-  resolveSuccessCallback: function resolveSuccessCallback(id) {
+
+  /**event:  XHREvent: { START | SUCCESS | ERROR | FINISH }*/
+  resolveLifecycleCallback: function resolveLifecycleCallback(event, id) {
     var componentIndex = window._aquastrap.component.findIndex(function (c) {
       return c.id === id;
     });
 
     var component = componentIndex !== -1 ? window._aquastrap.component[componentIndex] : undefined;
     var globalConfig = window._aquastrap.config;
+    var configProperty = _config__WEBPACK_IMPORTED_MODULE_2__.LIFECYCLE_CONFIG_NAME[event];
 
-    if (component && (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(component.config, 'success') && typeof component.config.success === 'function') {
-      return component.config.success;
+    if (component && (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(component.config, configProperty) && typeof component.config[configProperty] === 'function') {
+      return component.config[configProperty];
     }
 
-    if ((0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(globalConfig, 'success')) {
-      return globalConfig.success;
-    }
-
-    return function () {};
-  },
-  resolveErrorCallback: function resolveErrorCallback(id) {
-    var componentIndex = window._aquastrap.component.findIndex(function (c) {
-      return c.id === id;
-    });
-
-    var component = componentIndex !== -1 ? window._aquastrap.component[componentIndex] : undefined;
-    var globalConfig = window._aquastrap.config;
-
-    if (component && (0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(component.config, 'error') && typeof component.config.error === 'function') {
-      return component.config.error;
-    }
-
-    if ((0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(globalConfig, 'error')) {
-      return globalConfig.error;
+    if ((0,_helper_util__WEBPACK_IMPORTED_MODULE_0__._hasProperty)(globalConfig, configProperty)) {
+      return globalConfig[configProperty];
     }
 
     return function () {};
@@ -168,7 +170,7 @@ function _setAquaConfig(configs) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Method": () => (/* binding */ Method),
-/* harmony export */   "Callback": () => (/* binding */ Callback)
+/* harmony export */   "XHREvent": () => (/* binding */ XHREvent)
 /* harmony export */ });
 var Method = {
   GET: 'get',
@@ -177,7 +179,7 @@ var Method = {
   PATCH: 'patch',
   DELETE: 'delete'
 };
-var Callback = {
+var XHREvent = {
   SUCCESS: 'success',
   ERROR: 'error',
   START: 'start',
@@ -400,16 +402,17 @@ function _manifestNetworkHandler(url, ingredient, classMethod, id, key) {
             }, method !== _helper_types__WEBPACK_IMPORTED_MODULE_1__.Method.GET && {
               body: data
             });
-            _context.next = 9;
+            execLifecycleCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.START, null);
+            _context.next = 10;
             return fetch(url, options).then(function (res) {
               return res;
             }).then(function (data) {
               if (data.status >= 400) {
-                execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR, data);
+                execLifecycleCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR, data);
               }
 
               if (data.status < 300) {
-                execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.SUCCESS, data);
+                execLifecycleCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.SUCCESS, data);
               }
 
               var status = data.status;
@@ -420,15 +423,17 @@ function _manifestNetworkHandler(url, ingredient, classMethod, id, key) {
                 };
               });
             })["catch"](function (error) {
-              execUserCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR, data);
+              execLifecycleCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.ERROR, error);
               return error;
+            })["finally"](function (_) {
+              return execLifecycleCallback(id, _helper_types__WEBPACK_IMPORTED_MODULE_1__.XHREvent.FINISH, null);
             });
 
-          case 9:
+          case 10:
             reponse = _context.sent;
             return _context.abrupt("return", reponse);
 
-          case 11:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -437,24 +442,8 @@ function _manifestNetworkHandler(url, ingredient, classMethod, id, key) {
   }));
 }
 
-function execUserCallback(id, type, data) {
-  switch (type) {
-    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.SUCCESS:
-      _aquaCore.resolveSuccessCallback(id)(data);
-
-      break;
-
-    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.ERROR:
-      _aquaCore.resolveErrorCallback(id)(data);
-
-      break;
-
-    case _helper_types__WEBPACK_IMPORTED_MODULE_1__.Callback.START:
-      break;
-
-    default:
-      break;
-  }
+function execLifecycleCallback(id, type, data) {
+  _aquaCore.resolveLifecycleCallback(type, id)(data);
 }
 
 function _replicatePublicMethods(id, key, classIngredient, methodNames) {
@@ -3565,13 +3554,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/index */ "./resources/js/core/index.js");
 /* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./network */ "./resources/js/network.js");
 /* harmony import */ var _helper_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper/types */ "./resources/js/helper/types.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ "./resources/js/config.js");
 function _defineEnumerableProperties(obj, descs) { for (var key in descs) { var desc = descs[key]; desc.configurable = desc.enumerable = true; if ("value" in desc) desc.writable = true; Object.defineProperty(obj, key, desc); } if (Object.getOwnPropertySymbols) { var objectSymbols = Object.getOwnPropertySymbols(descs); for (var i = 0; i < objectSymbols.length; i++) { var sym = objectSymbols[i]; var desc = descs[sym]; desc.configurable = desc.enumerable = true; if ("value" in desc) desc.writable = true; Object.defineProperty(obj, sym, desc); } } return obj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -3585,22 +3573,31 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
 
 window.Aquastrap = {
-  onSuccess: function onSuccess(succesCallback) {
-    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-      success: succesCallback
-    });
+  onStart: function onStart(callback) {
+    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.START], callback));
 
     return this;
   },
-  onError: function onError(errCallback) {
-    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-      error: errCallback
-    });
+  onSuccess: function onSuccess(callback) {
+    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.SUCCESS], callback));
+
+    return this;
+  },
+  onError: function onError(callback) {
+    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.ERROR], callback));
+
+    return this;
+  },
+  onFinish: function onFinish(callback) {
+    (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.FINISH], callback));
 
     return this;
   }
@@ -3686,17 +3683,23 @@ window._aquaGenerate = function (id, key, componentIngredient, methods) {
 window._registerAquaConfig = function () {
   var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   return {
-    onSuccess: function onSuccess(succesCallback) {
-      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-        success: succesCallback
-      }, id);
+    onStart: function onStart(callback) {
+      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.START], callback), id);
 
       return this;
     },
-    onError: function onError(errCallback) {
-      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)({
-        error: errCallback
-      }, id);
+    onSuccess: function onSuccess(callback) {
+      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.SUCCESS], callback), id);
+
+      return this;
+    },
+    onError: function onError(callback) {
+      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.ERROR], callback), id);
+
+      return this;
+    },
+    onFinish: function onFinish(callback) {
+      (0,_core_index__WEBPACK_IMPORTED_MODULE_1__._setAquaConfig)(_defineProperty({}, _config__WEBPACK_IMPORTED_MODULE_4__.LIFECYCLE_CONFIG_NAME[_helper_types__WEBPACK_IMPORTED_MODULE_3__.XHREvent.FINISH], callback), id);
 
       return this;
     }

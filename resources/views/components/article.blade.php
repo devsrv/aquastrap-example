@@ -1,10 +1,10 @@
 <div>
     <script>
         // directive - config for the current component
-        {{-- @aquaConfig.onSuccess((res) => console.info('successful from config', res)).onError((err) => console.warn('something went wrong', err)); --}}
+        {{-- @aquaConfig.onStart(() => console.info('local start')).onSuccess((res) => console.info('local successful from config', res)).onError((err) => console.warn('local something went wrong', err)); --}}
 
         // js helper - global config
-        {{-- Aquastrap.onSuccess((res) => console.info('successful', res)).onError((err) => console.warn('something went wrong', err)); --}}
+        {{-- Aquastrap.onStart(() => console.info('global start')).onFinish(() => console.info('global finish')).onSuccess((res) => console.info('global successful', res)).onError((err) => console.warn('global something went wrong', err)); --}}
     </script>
 
     <h2>Article Component </h2>
