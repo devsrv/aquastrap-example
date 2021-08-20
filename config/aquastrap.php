@@ -39,14 +39,14 @@ return [
 
         'strategy' => [
             'native' => [
-                'crypter' => \Devsrv\Aquastrap\Crypt\Native\Crypt::class
+                'crypter' => \Aqua\Aquastrap\Crypt\Native\Crypt::class
             ],
             'custom' => [
                 'crypter' => \App\Services\Crypt\Crypter::class
             ],
             'halite' => [
                 'key_path' => storage_path('app/aquastrap/encryption.key'),
-                'crypter' => \Devsrv\Aquastrap\Crypt\Halite\Crypt::class
+                'crypter' => \Aqua\Aquastrap\Crypt\Halite\Crypt::class
             ]
         ]
     ]

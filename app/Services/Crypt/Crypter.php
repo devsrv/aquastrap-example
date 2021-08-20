@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services\Crypt;
-use Devsrv\Aquastrap\Contracts\Crypto;
+use Aqua\Aquastrap\Contracts\Crypto;
 
 class Crypter implements Crypto
 {

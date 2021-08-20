@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Devsrv\Aquastrap\Traits\AquaSync;
+use Aqua\Aquastrap\Traits\AquaSync;
 
 class Profile
 {

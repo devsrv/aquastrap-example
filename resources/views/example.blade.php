@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                {{-- <x-article /> --}}
+                <x-article />
             </div>
             <div class="col-4">
                 {{-- <x-folder.my-component fname="rv" username="rav" :aCallableArg="function($param) { return $param; }" /> --}}

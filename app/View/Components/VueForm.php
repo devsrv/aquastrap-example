@@ -3,8 +3,8 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\AquaSync;
-use Devsrv\Aquastrap\AquaComponent;
+use Aqua\Aquastrap\Traits\AquaSync;
+use Aqua\Aquastrap\AquaComponent;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;

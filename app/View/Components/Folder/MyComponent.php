@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Gate;
-use Devsrv\Aquastrap\Traits\AquaSync;
+use Aqua\Aquastrap\Traits\AquaSync;
 
 class MyComponent extends Component
 {

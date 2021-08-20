@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\Component;
-use Devsrv\Aquastrap\Traits\AquaSync;
+use Aqua\Aquastrap\Traits\AquaSync;
 
 class Article extends Component
 {
@@ -55,6 +55,6 @@ class Article extends Component
      */
     public function render()
     {
-        return view('components.article');
+        return view('components.article')->with($this->aquaRecipes());
     }
 }
