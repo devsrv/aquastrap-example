@@ -22,20 +22,20 @@
         <div class="card-body mt-4" id="v-hook-app">
             <h2>Hook</h2>
 
-            <p class="mb-0 text-danger" v-if="aquahook.hasValidationError">validation error!</p>
-            <p class="mb-2">{{ aquahook.message }}</p>
+            <p class="mb-0 text-danger" v-if="aquahook.state.hasValidationError">validation error!</p>
+            <p class="mb-2">{{ aquahook.state.message }}</p>
 
             <p>Commented: <em class="font-italic text-primary">{{ form.comment }}</em></p>
 
             <form @submit.prevent="aquahook.submit(form)"> <!-- or using @submit.prevent="store" -->
-                <textarea v-model="form.comment" :disabled="aquahook.processing" type="text" class="form-control form-control-sm" :class="{'is-invalid': aquahook.errors.comment}"></textarea>
-                <small class="invalid-feedback">{{ aquahook.errors.comment && aquahook.errors.comment[0] }}</small>
+                <textarea v-model="form.comment" :disabled="aquahook.state.processing" type="text" class="form-control form-control-sm" :class="{'is-invalid': aquahook.state.errors.comment}"></textarea>
+                <small class="invalid-feedback">{{ aquahook.state.errors.comment && aquahook.state.errors.comment[0] }}</small>
 
-                <button :disabled="aquahook.processing" type="submit" class="btn btn-sm btn-dark mt-1 d-flex justify-content-center">
-                    <div v-if="aquahook.processing" class="spinner-grow spinner-grow-sm align-self-center mr-2" role="status"></div>
-                    {{ ( aquahook.processing ? 'Saving...' : 'Save' ) }}
+                <button :disabled="aquahook.state.processing" type="submit" class="btn btn-sm btn-dark mt-1 d-flex justify-content-center">
+                    <div v-if="aquahook.state.processing" class="spinner-grow spinner-grow-sm align-self-center mr-2" role="status"></div>
+                    {{ ( aquahook.state.processing ? 'Saving...' : 'Save' ) }}
                 </button>
-                <span v-if="! aquahook.processing && aquahook.statusCode == 200" class="text-success">saved !</span>
+                <span v-if="! aquahook.state.processing && aquahook.state.statusCode == 200" class="text-success">saved !</span>
             </form>
         </div>
     </div>
@@ -45,19 +45,19 @@
             <h2>Hook 2</h2>
 
             <small class="mb-0 text-danger" v-if="hasValidationErrors">validation error!</small>
-            <p class="mb-2">{{ message }}</p>
+            <p class="mb-2">{{ state.message }}</p>
 
             <p class="mb-2 text-success">{{ postSuccessMsg }}</p>
 
             <p>Commented: <em class="font-italic text-primary">{{ form.comment }}</em></p>
 
             <form @submit.prevent="post(form)">
-                <textarea v-model="form.comment" :disabled="processing" type="text" class="form-control form-control-sm" :class="{'is-invalid': errors.comment}"></textarea>
-                <small class="invalid-feedback">{{ errors.comment && errors.comment[0] }}</small>
+                <textarea v-model="form.comment" :disabled="state.processing" type="text" class="form-control form-control-sm" :class="{'is-invalid': state.errors.comment}"></textarea>
+                <small class="invalid-feedback">{{ state.errors.comment && state.errors.comment[0] }}</small>
 
-                <button :disabled="processing" type="submit" class="btn btn-sm btn-dark mt-1 d-flex justify-content-center">
-                    <div v-if="processing" class="spinner-grow spinner-grow-sm align-self-center mr-2" role="status"></div>
-                    {{ ( processing ? 'Saving...' : 'Save' ) }}
+                <button :disabled="state.processing" type="submit" class="btn btn-sm btn-dark mt-1 d-flex justify-content-center">
+                    <div v-if="state.processing" class="spinner-grow spinner-grow-sm align-self-center mr-2" role="status"></div>
+                    {{ ( state.processing ? 'Saving...' : 'Save' ) }}
                 </button>
             </form>
         </div>
@@ -107,7 +107,7 @@
         data: {form: {comment: ''}, postSuccessMsg: '', ...@aqua.hook.publish},
         computed: {
             hasValidationErrors: function () {
-                return ! this.processing && Object.keys(this.errors).length > 0;
+                return ! this.state.processing && Object.keys(this.state.errors).length > 0;
             }
         },
         watch: {
@@ -118,7 +118,7 @@
             processing: function (running) {
                 // reset data
                 if(running) this.postSuccessMsg = '';
-                if(! running && this.statusCode == 200) this.form.comment = '';
+                if(! running && this.state.statusCode == 200) this.form.comment = '';
             },
         }
     });

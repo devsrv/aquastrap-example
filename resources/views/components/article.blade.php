@@ -1,10 +1,18 @@
 <div>
     <script>
         // directive - config for the current component
-        {{-- @aquaConfig.onStart(() => console.info('local start')).onSuccess((res) => console.info('local successful from config', res)).onError((err) => console.warn('local something went wrong', err)); --}}
+        @aquaConfig.onStart(() => console.info('local start'))
+        .onSuccess((res) => console.info('local successful from config', res))
+        .onError((err) => console.warn('local something went wrong', err))
+        .onNotification((notify) => console.info('Local Notification', notify));
 
         // js helper - global config
-        {{-- Aquastrap.onStart(() => console.info('global start')).onFinish(() => console.info('global finish')).onSuccess((res) => console.info('global successful', res)).onError((err) => console.warn('global something went wrong', err)); --}}
+        {{--
+        Aquastrap.onStart(() => console.info('global start'))
+        .onFinish(() => console.info('global finish'))
+        .onSuccess((res) => console.info('global successful', res))
+        .onError((err) => console.warn('global something went wrong', err))
+        .onNotification((notify) => console.info('Global Notification', notify)); --}}
     </script>
 
     <h2>Article Component </h2>
@@ -51,24 +59,24 @@
 
     <x-ui.card title="Hook method">
         <div class="p-3">
-            <div x-data="{...singleUpload(), ...multipleUpload(), ...fileValidationHelper(), form:{email: '', profile: null, avatar: null}, ...@aqua.hook }">
-                <p x-show="update.processing">loading...</p>
-                <p x-show="! update.processing && update.result" x-effect="() => console.log('x-effect', update.result)"></p>
-                <p x-show="update.hasValidationError">validation error!</p>
-                <p x-text="update.message"></p>
-                <p x-text="update.statusCode"></p>
+            <div x-data="{...singleUpload(), ...multipleUpload(), ...fileValidationHelper(), form:{email: '', profile: null, avatar: null}, update: @aqua.hook.update }">
+                <p x-show="update.state.processing">loading...</p>
+                <p x-show="! update.state.processing && update.state.result" x-effect="() => console.log('x-effect', update.state.result)"></p>
+                <p x-show="update.state.hasValidationError">validation error!</p>
+                <p x-text="update.state.message"></p>
+                <p x-text="update.state.statusCode"></p>
                 <form x-on:submit.prevent="update.post(form)">
                     <div class="col-12">
-                        <input x-model="form.email" placeholder="Email" class="form-control" :class="{'is-invalid': update.errors.email}" type="text" />
-                        <small x-show="update.errors.email" x-text="update.errors.email" class="invalid-feedback"></small>
+                        <input x-model="form.email" placeholder="Email" class="form-control" :class="{'is-invalid': update.state.errors.email}" type="text" />
+                        <small x-show="update.state.errors.email" x-text="update.state.errors.email" class="invalid-feedback"></small>
                     </div>
                     <div class="col-12 mt-2">
-                        <input x-on:change="form.profile = $el.files[0]" class="form-control" :class="{'is-invalid': update.errors.profile}" type="file" />
-                        <small x-show="update.errors.profile" x-text="update.errors.profile" class="invalid-feedback"></small>
+                        <input x-on:change="form.profile = $el.files[0]" class="form-control" :class="{'is-invalid': update.state.errors.profile}" type="file" />
+                        <small x-show="update.state.errors.profile" x-text="update.state.errors.profile" class="invalid-feedback"></small>
                     </div>
                     <div class="col-12 mt-2">
                         <label class="form-label">single file preview</label>
-                        <input x-on:change="previewSingleFile('avatar', $el, $refs.previewSingle, $refs.previewSingleSize, $refs.previewSingleName)" x-ref="avatarfld" class="form-control" :class="{'is-invalid': update.errors.avatar}" type="file" />
+                        <input x-on:change="previewSingleFile('avatar', $el, $refs.previewSingle, $refs.previewSingleSize, $refs.previewSingleName)" x-ref="avatarfld" class="form-control" :class="{'is-invalid': update.state.errors.avatar}" type="file" />
                         <div class="preview position-relative">
                             <div class="position-absolute top-0" style="left:60px">
                                 <template x-if="form.avatar">
@@ -80,7 +88,7 @@
                             <p x-ref="previewSingleSize" class="mb-1"></p>
                             <p x-ref="previewSingleName" class="mb-0"></p>
                         </div>
-                        <small x-show="update.errors.avatar" x-text="update.errors.avatar" class="invalid-feedback"></small>
+                        <small x-show="update.state.errors.avatar" x-text="update.state.errors.avatar" class="invalid-feedback"></small>
                     </div>
                     <div class="col-12 mt-2">
                         <label class="form-label">multiple file</label>
@@ -99,7 +107,7 @@
                                 </div>
                             </template>
                         </div>
-                        <small x-effect="() => checkMultipleFileUploadError('tour', $refs.tourfld, update.errors)" class="invalid-feedback">
+                        <small x-effect="() => checkMultipleFileUploadError('tour', $refs.tourfld, update.state.errors)" class="invalid-feedback">
                             <template x-if="fileErrors.tour && fileErrors.tour.length > 0">
                                 <ul>
                                     <template x-for="(err, index) in fileErrors.tour" :key="index">
@@ -109,8 +117,8 @@
                             </template>
                         </small>
                     </div>
-                    <button class="btn btn-sm btn-primary mt-2" :disabled="update.processing" type="submit">Save</button>
-                    <button x-show="update.processing" @click.prevent="update.cancel()" class="btn btn-sm btn-secondary mt-2" type="button">Cancel</button>
+                    <button class="btn btn-sm btn-primary mt-2" :disabled="update.state.processing" type="submit">Save</button>
+                    <button x-show="update.state.processing" @click.prevent="update.cancel()" class="btn btn-sm btn-secondary mt-2" type="button">Cancel</button>
                 </form>
             </div>
         </div>
