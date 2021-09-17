@@ -119,6 +119,9 @@
                     </div>
                     <button class="btn btn-sm btn-primary mt-2" :disabled="update.state.processing" type="submit">Save</button>
                     <button x-show="update.state.processing" @click.prevent="update.cancel()" class="btn btn-sm btn-secondary mt-2" type="button">Cancel</button>
+                    <button @click.prevent="update.resetStates()" class="btn btn-sm btn-secondary mt-2" type="button">Reset States</button>
+                    <button @click.prevent="update.resetState('statusCode')" class="btn btn-sm btn-secondary mt-2" type="button">Reset Status Code</button>
+                    {{-- multiple state can be reset by passing array of state names --}}
                 </form>
             </div>
         </div>
