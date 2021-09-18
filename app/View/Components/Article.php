@@ -38,14 +38,24 @@ class Article extends Component
             $path = $request->file('profile')->store('profile/10', 'public');
         }
 
-        return response()->json(['success' => 1, 'message' => 'Successfully done'])->setStatusCode(201);
+        return $this->success('Successfully done')
+        ->setStatusCode(\Symfony\Component\HttpFoundation\Response::HTTP_OK)
+        ->setContent([
+            'payload' => [],
+            'message' => 'Successfully done'
+        ]);
+        // return response()->json(['success' => 1, 'message' => 'Successfully done'])->setStatusCode(201);
     }
 
     public function delete()
     {
         // sleep(3);
 
-        return $this->warning('something not good', ['foo' => 'world']);
+        return $this->warning('something not good')
+            ->setContent([
+                'message' => 'Too many requests !',
+                'foo' => 'world'
+            ]);
     }
 
     /**

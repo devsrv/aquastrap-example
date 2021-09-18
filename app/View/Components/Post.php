@@ -25,12 +25,12 @@ class Post extends AquaComponent
 
     public function delete()
     {
-        return $this->success('success message', ['hello' => 'world']);
+        return $this->success('success message');
     }
 
     public function store()
     {
-        return $this->success('success message', ['hello' => 'world']);
+        return $this->success('success message');
     }
 
     /**

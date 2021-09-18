@@ -39,7 +39,10 @@ class VueForm extends AquaComponent
             'comment' => 'required|min:10'
         ]);
 
-        return $this->success('success message', ['message' => 'hello world']);
+        return $this->success('success message')
+        ->setContent([
+            'message' => 'hello world'
+        ]);;
     }
 
     public function publish(Request $request)
@@ -50,7 +53,10 @@ class VueForm extends AquaComponent
             'comment' => 'required|min:10'
         ]);
 
-        return $this->success('success message', ['success' => 1, 'id' => 10]);
+        return $this->success('success message')
+        ->setContent([
+            'success' => 1, 'id' => 10
+        ]);;
     }
 
     /**
