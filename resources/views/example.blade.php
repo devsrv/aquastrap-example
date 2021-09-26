@@ -16,7 +16,7 @@
             </div>
             <div class="col-4">
                 <x-post username="rsourav" comment="test comment" foo="bar" />
-                <x-post username="coldsierra" comment="shiva" />
+                <x-post username="avish" comment="shiva" />
                 <hr>
                 <x-vue-form />
             </div>

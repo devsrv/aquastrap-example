@@ -21,19 +21,21 @@ class Profile
 
     public function updated()
     {
-        return $this->success('success update message', [
-            'comment' => $this->comment
-        ]);
+        return $this->success('success update message');
     }
 
     public function deleted()
     {
-        return $this->success('success delete message', ['hello' => 'world']);
+        return $this->success('success delete message')
+        ->setStatusCode(201)
+        ->setContent(['hello' => 'world']);
     }
 
     public function store()
     {
-        return $this->success('success delete message', ['hello' => 'world']);
+        return $this->success('success delete message')
+        ->setStatusCode(201)
+        ->setContent(['hello' => 'world']);
     }
 
     public function render()

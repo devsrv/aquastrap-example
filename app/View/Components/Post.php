@@ -25,7 +25,7 @@ class Post extends AquaComponent
 
     public function delete()
     {
-        return $this->success('success message');
+        return $this->success('success message')->setStatusCode(204);
     }
 
     public function store()
