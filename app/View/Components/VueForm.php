@@ -23,7 +23,7 @@ class VueForm extends AquaComponent
         //
     }
 
-    public function authorize()
+    public function allowed()
     {
         // return true;
         // Gate::authorize('update-post');
