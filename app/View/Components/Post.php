@@ -12,6 +12,7 @@ class Post extends AquaComponent
 
     // protected static $middlewares = ['auth'];
     protected static $guarded = ['store'];
+    // protected static $aquaCallable = ['delete'];
 
     /**
      * Create a new component instance.
