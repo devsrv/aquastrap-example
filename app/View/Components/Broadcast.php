@@ -7,8 +7,6 @@ use Aqua\Aquastrap\Traits\AquaSync;
 
 class Broadcast extends AquaComponent
 {
-    use AquaSync;
-
     /**
      * Create a new component instance.
      *

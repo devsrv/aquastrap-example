@@ -16,8 +16,6 @@ class MyComponent extends Component
     public $aCallableArg;
     public static $fname;
 
-    // protected static $middlewares = ['auth'];
-
     /**
      * Create a new component instance.
      *

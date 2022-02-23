@@ -22,6 +22,10 @@ class Game extends AquaComponent
 
     public function store()
     {
+        $this->rateLimit(2);
+
+        $this->clearRateLimiter();
+
         return $this->success('success message')
         ->setStatusCode(204);
     }

@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Gate;
 
 class VueForm extends AquaComponent
 {
-    use AquaSync;
-
     /**
      * Create a new component instance.
      *
@@ -23,7 +21,7 @@ class VueForm extends AquaComponent
         //
     }
 
-    public function allowed()
+    public function allowed() : Response
     {
         // return true;
         // Gate::authorize('update-post');
@@ -34,6 +32,7 @@ class VueForm extends AquaComponent
     public function store(Request $request)
     {
         sleep(1);
+        $this->rateLimit(2);
 
         $request->validate([
             'comment' => 'required|min:10'

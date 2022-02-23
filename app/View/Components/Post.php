@@ -8,10 +8,7 @@ use Aqua\Aquastrap\AquaComponent;
 
 class Post extends AquaComponent
 {
-    use AquaSync;
-
-    // protected static $middlewares = ['auth'];
-    protected static $guarded = ['store'];
+    protected static $aquaGuarded = ['store'];
     // protected static $aquaCallable = ['delete'];
 
     /**
@@ -26,11 +23,13 @@ class Post extends AquaComponent
 
     public function delete()
     {
+        $this->hitRateLimiter();
         return $this->success('success message')->setStatusCode(204);
     }
 
     public function store()
     {
+        $this->hitRateLimiter();
         return $this->success('success message');
     }
 

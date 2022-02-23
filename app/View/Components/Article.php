@@ -11,8 +11,6 @@ class Article extends Component
 {
     use AquaSync;
 
-    protected static $middlewares = ['web'];
-
     /**
      * Create a new component instance.
      *
@@ -25,6 +23,8 @@ class Article extends Component
 
     public function update(Request $request)
     {
+        $this->rateLimit(2);
+
         $request->validate([
             'email' => 'required|email',
             'profile' => 'nullable|file|mimes:png,jpg',
@@ -37,6 +37,8 @@ class Article extends Component
             // $request->file('profile')->store('avatars');
             $path = $request->file('profile')->store('profile/10', 'public');
         }
+
+        $this->clearRateLimiter();
 
         return $this->success('Successfully done')
         ->setStatusCode(\Symfony\Component\HttpFoundation\Response::HTTP_OK)
